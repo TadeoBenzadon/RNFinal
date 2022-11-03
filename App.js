@@ -1,6 +1,6 @@
 import  Register from './src/screens/Register';
 import { StyleSheet, Text, View } from 'react-native';
-
+import HomeMenu from './src/screens/HomeMenu';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -12,8 +12,8 @@ export default function App() {
 		<NavigationContainer>
 			<Stack.Navigator>
 				<Stack.Screen name="Register" component={Register} />
-{/* 				<Stack.Screen name="Login" component={Login} />
-				<Stack.Screen name="HomeMenu" component={HomeMenu} /> */}
+{/* 				<Stack.Screen name="Login" component={Login} /> */}
+				<Stack.Screen name="HomeMenu" component={HomeMenu} /> 
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
