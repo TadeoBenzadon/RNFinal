@@ -33,8 +33,8 @@ render() {
     return (
         <View style= {styles.container}>
             {
-                this.state.loading ?
-                <Loader/> :
+                
+                
                 <View style= {styles.container}>
                     <FlatList
                         data={this.state.posteos}
