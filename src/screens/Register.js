@@ -81,6 +81,9 @@ class Register extends Component {
                 >
                     <Text style={styles.text}>Registrarse</Text>
                 </TouchableOpacity>
+
+                <TextInput  onChangeText={(text) => this.setState({ pass: text })} value={this.state.pass} />
+					<Text style={styles.text} onPress={() => this.props.navigation.navigate('Login')}>Ya tengo cuenta</Text>
                 
 
                 </View>
