@@ -31,8 +31,13 @@ class Register extends Component {
 							password: '',
 						});
 						this.props.navigation.navigate('HomeMenu');
-					});
-			})
+					})
+                    })
+                    .catch((error) => {console.log(error)
+                        this.setState({
+                              registerError: error.message
+                         })
+                      } )
  }
 
 
@@ -84,9 +89,8 @@ class Register extends Component {
 
                 <TextInput  onChangeText={(text) => this.setState({ pass: text })} value={this.state.pass} />
 					<Text style={styles.text} onPress={() => this.props.navigation.navigate('Login')}>Ya tengo cuenta</Text>
-                
-
                 </View>
+                <Text> {this.state.registerError}</Text>
 
             </View>
         );

@@ -8,6 +8,7 @@ class Login extends Component {
 		this.state = {
 			email: '',
 			pass: '',
+            loginError: ''
 		};
 	}
 	login(email, pass) {
@@ -16,7 +17,11 @@ class Login extends Component {
 			.then((res) => {
 				this.props.navigation.navigate('Home');
 			})
-			.catch((error) => console.log(error));
+			.catch((error) => {console.log(error)
+                this.setState({
+                      loginError: error.message
+                 })
+              } )
 	}
 
 	render() {
@@ -28,6 +33,7 @@ class Login extends Component {
 					<TextInput style={styles.campo} placeholder="password" keyboardType="default" secureTextEntry onChangeText={(text) => this.setState({ pass: text })} value={this.state.pass} />
 					<Text style={styles.text} onPress={() => this.login(this.state.email, this.state.pass)}>Ingresar</Text>
 					<Text style={styles.text} onPress={() => this.props.navigation.navigate('Register')}>No tengo cuenta</Text>
+                    <Text> {this.state.loginError}</Text>
 				</View>
 			</View>
 		);
