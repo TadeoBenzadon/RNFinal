@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, FlatList, StyleSheet, TextInput } from 'react-native'
-import { db, auth } from '../../firebase/config'
+import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
+import {auth } from '../../firebase/config'
 
 class Profile extends Component {
     constructor(props) {
       super(props)
-      this.state = {
-          posts: [],
-          loading: true
-      }
+      this.state = {}
     }
 
     componentDidMount(){
@@ -38,11 +35,10 @@ class Profile extends Component {
                 <Loader/> 
                 :
                 <View style={styles.container}>
-                    <Text style={styles.tittle}>My profile</Text>
-                    <Text style={styles.subtittle}> Welcome: {auth.currentUser.email}</Text>
+                    <Text style={styles.titulo}>Mi perfil</Text>
                     <Text style={styles.text}> Email: {auth.currentUser.email}</Text>
-                    <Text style={styles.text}> Last sign in Time: {auth.currentUser.metadata.lastSignInTime}</Text>
-                    <Text style={styles.subtittle}>Posts:</Text>
+                    <Text style={styles.nombre}> Nombre de usuario: {auth.currentUser.nombreUsuario}</Text>
+                    <Text style={styles.bio}>Biografia: {auth.currentUser.bio}</Text>
                     <View style={styles.container}>
                     <FlatList style={styles.flatList}
                         data={this.state.posts}

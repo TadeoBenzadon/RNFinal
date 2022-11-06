@@ -1,53 +1,51 @@
 import React, { Component } from 'react';
-import {View, FlatList, StyleSheet } from 'react-native';
-import {db} from '../../firebase/config' 
+import {View, Text, FlatList, StyleSheet } from 'react-native';
+import {db} from '../../firebase/config'; 
 
 
 class Home extends Component{
-    constructor (){
-        super ()
-        this.state = {
-            posteos: [],
-            loading: true,
+    constructor(props) {
+		super(props);
+		this.state = {
+			posts:[]
         }
     }
+    
     componentDidMount(){
-        db.collection('posts').orderBy('createdAt', 'desc').onSnapshot(
-            docs =>{
+        db.collection('posts').onSnapshot(
+            docs => {
                 let posts = [];
-                docs.forEach( doc => {
+                docs.forEach( oneDoc => {
                     posts.push({
-                        id: doc.id,
-                        data: doc.data()
+                        id: oneDoc.id,
+                        data: oneDoc.data()
                     })
-                this.setState({
-                    posteos: posts,
-                    loading: false
                 })
+
+                this.setState({
+                    posts: posts
                 })
             }
         )
+        
+    }
 
-}
-render() {
-    return (
-        <View style= {styles.container}>
-            {
-                
-                
-                <View style= {styles.container}>
-                    <FlatList
-                        data={this.state.posteos}
-                        keyExtractor={(item)=> item.id.toString()}
-                        renderItem={({item}) => <Post info={item} navigation={this.props.navigation}/>}
-                    
+    render(){
+        // console.log(this.state);
+        return(
+                <View>
+                    <Text>Posteos</Text>
+                    <FlatList 
+                        data={this.state.posts}
+                        keyExtractor={post => post.id}
+                        renderItem = { ({item}) => <Post dataPost={item} 
+                        {...this.props} />}
                     />
+                    
                 </View>
-            }
 
-        </View>
-    )
-  }
+        )
+    }
 };
 
 const styles = StyleSheet.create({
