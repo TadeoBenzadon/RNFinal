@@ -5,15 +5,15 @@ import {auth } from '../../firebase/config'
 class Profile extends Component {
     constructor(props) {
       super(props)
-      this.state = {}
+      this.state = {
+        email: '',
+        password :'',
+      };
     }
 
 logOut (){
     auth.signOut ();
     this.props.navigation.navigate('Register');
-}
-componentDidMount(){
-   console.log('hols');
 }
 
         render (){

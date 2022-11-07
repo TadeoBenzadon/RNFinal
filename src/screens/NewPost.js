@@ -11,6 +11,8 @@ import {
 import {auth, db} from '../../firebase/config'
 
 
+import MyCamera from '../components/MyCamera'
+
 
 export default class NewPost extends Component {
 
@@ -56,30 +58,29 @@ export default class NewPost extends Component {
   render() {
     return (
       <View style={styles.container}>
-      {
-        this.state.showCamera ? 
-        <MyCamera 
-          onImageUpload = { url => this.onImageUpload(url)}
-        /> :
-        <View style={styles.container}>
-          <Text style={styles.title}>Nuevo Post</Text>
-          <TextInput 
-            style={styles.field}
-            keyboardType='default'
-            placeholder='Descripcion'
-            onChangeText={text => this.setState({description: text})}
-            multiline
-          />
-          <TouchableOpacity 
-            style= {styles.button}
-            onPress={()=> this.guardarPost()}
-          >
-            <Text style={styles.buttonText}>Guardar Post</Text>
-          </TouchableOpacity>
-        </View>
-      }
-
-      </View>
+        {
+            this.state.showCamera ? 
+            <MyCamera 
+                onImageUpload = {url => this.onImageUpload(url)}
+            /> :
+            <View style={styles.container}>
+                 <Text style={styles.titulo}> Nuevo Post</Text>
+                 <TextInput
+                 style ={styles.campo} //o field si no funciona
+                 keyboardType = 'default'
+                 placeholder='Descripcion'
+                 onChangeText={text => this.setState({description: text})} //aca se guarda el estado
+                
+                />
+                <TouchableOpacity
+                style={styles.button}
+                onPress= {()=>this.guardarPost()}
+                >
+                    <Text style= {styles.buttonText}> Guardar post</Text>
+                </TouchableOpacity>
+            </View>
+  }
+      </View> 
     )
   }
 }

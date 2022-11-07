@@ -13,6 +13,8 @@ function HomeMenu() {
 			<Tab.Screen name="Home" component={Home} />
 		
 			<Tab.Screen name="Profile" component={Profile} />
+
+			<Tab.Screen name="NewPost" component={NewPost} />
 		
 		</Tab.Navigator>
 	);
