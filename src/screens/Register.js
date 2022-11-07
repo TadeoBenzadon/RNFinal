@@ -15,20 +15,22 @@ class Register extends Component {
 	} //Es un componente de clase porque....
           
 //Al registrar un user, queremos guardarlo en la db con nombre,biografia. ¿como hago esto?
- register(email, password, username){
+ register(){
     auth
-			.createUserWithEmailAndPassword(email, password)
+			.createUserWithEmailAndPassword(this.state.email, this.state.password)
 			.then((res) => {
 				db
 					.collection('users')
-					.add({
-						email: email,
-						username: username,
-					})
+					.add({ email: this.state.email,         //lo pasamos asi porque esta dentro de un OBJETO LOTERAL.
+                        password: this.state.password, 
+                        username: this.state.username, 
+                        bio: this.state.bio,
+                     })
 					.then((res) => {
 						this.setState({
 							email: '',
 							password: '',
+                            bio: '',
 						});
 						this.props.navigation.navigate('HomeMenu');
 					})
@@ -81,7 +83,7 @@ class Register extends Component {
 
 
                 <TouchableOpacity
-                    onPress={() => this.register(this.state.email, this.state.password, this.state.username, this.state.bio)} 
+                    onPress={() => this.register()} 
                     style={styles.button}
                 >
                     <Text style={styles.text}>Registrarse</Text>
