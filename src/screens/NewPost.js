@@ -39,7 +39,7 @@ export default class NewPost extends Component {
          console.log("Posteo Exitoso")
          this.setState({
           description: ""
-         }, () => this.props.navigation.navigate('Home')
+         }, () => this.props.navigation.navigate('HomeMenu')
          ) 
       })
       .catch( err => console.log(err))

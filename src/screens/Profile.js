@@ -7,54 +7,13 @@ class Profile extends Component {
       super(props)
       this.state = {}
     }
-
-    componentDidMount(){
-        db.collection('posts').where('email', '==', auth.currentUser.email).onSnapshot(
-            docs =>{
-                let posts = [];
-                docs.forEach( doc => {
-                    posts.push({
-                        id: doc.id,
-                        data: doc.data()
-                    })
-                })
-                this.setState({
-                    posts: posts,
-                    loading: false
-                })
-            }
-        )
-    }
-
-
-  render() {
-    return(
-        <View style={styles.container}>
-            {
-                this.state.loading ?
-                <Loader/> 
-                :
-                <View style={styles.container}>
-                    <Text style={styles.titulo}>Mi perfil</Text>
-                    <Text style={styles.text}> Email: {auth.currentUser.email}</Text>
-                    <Text style={styles.nombre}> Nombre de usuario: {auth.currentUser.nombreUsuario}</Text>
-                    <Text style={styles.bio}>Biografia: {auth.currentUser.bio}</Text>
-                    <View style={styles.container}>
-                    <FlatList style={styles.flatList}
-                        data={this.state.posts}
-                        keyExtractor={(item)=> item.id.toString()}
-                        renderItem={({item}) => <Posts borrar={true} info={item} navigation={this.props.route.params.navigation}/>}
-                    />
-                    </View>
-                    <TouchableOpacity style={styles.button} onPress={()=>this.props.route.params.logout()}>
-                        <Text style={styles.touchableText}>Logout</Text>
-                    </TouchableOpacity>         
-                </View>
-            }
-        </View>  
-      )
-    }
-}
+    
+        render (){
+            <view> 
+                <text> Mi perfil</text>
+            </view>
+        }
+    };
 
 const styles = StyleSheet.create({
     container:{
