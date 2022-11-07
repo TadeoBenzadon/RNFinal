@@ -7,11 +7,23 @@ class Profile extends Component {
       super(props)
       this.state = {}
     }
-    
+
+logOut (){
+    auth.signOut ();
+    this.props.navigation.navigate('Register');
+}
+componentDidMount(){
+   console.log('hols');
+}
+
         render (){
-            <view> 
-                <text> Mi perfil</text>
-            </view>
+          return (  <View> 
+            <Text> Mi perfil</Text>
+           
+            <TouchableOpacity onPress={() => this.logOut()}>
+                <Text>Cerrar Sesion</Text>
+            </TouchableOpacity>
+        </View>)
         }
     };
 

@@ -10,9 +10,16 @@ class Register extends Component {
 			password: '',
 			username: '',
             bio: '',             
-            // fotoDePerfil: '',
+            fotoDePerfil: false,  // se pone false porque va estar vacio, ya que la funcionalidad no esta programada. 
 		};
 	} //Es un componente de clase porque....
+    componentDidMount(){
+        auth.onAuthStateChanged(user =>{
+             if(user){
+                  this.props.navigation.navigate('HomeMenu')
+             }
+        })
+   }
           
 //Al registrar un user, queremos guardarlo en la db con nombre,biografia. ¿como hago esto?
  register(){
@@ -25,6 +32,7 @@ class Register extends Component {
                         password: this.state.password, 
                         username: this.state.username, 
                         bio: this.state.bio,
+                        fotoDePerfil: this.state.fotoDePerfil,
                      })
 					.then((res) => {
 						this.setState({

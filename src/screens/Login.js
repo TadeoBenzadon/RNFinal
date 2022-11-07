@@ -11,6 +11,7 @@ class Login extends Component {
             loginError: ''
 		};
 	}
+     
 	login(email, pass) {
 		auth
 			.signInWithEmailAndPassword(email, pass)
