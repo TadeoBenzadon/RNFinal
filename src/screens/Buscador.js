@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { db } from '../firebase/config';
+import { db } from '../../firebase/config';
 import { View,
          Text,
          TextInput,
@@ -53,7 +53,7 @@ class Buscador extends Component {
                         <TextInput 
                             style={styles.campo}
                             keyboardType='default'
-                            placeholder='Ingrese el correo electrónico del usuario'
+                            placeholder='Ingrese el nombre del usuario'
                             value={this.state.user}
                             onChangeText={text => this.setState({ user: text})}
                         />  
