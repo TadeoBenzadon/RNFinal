@@ -9,10 +9,7 @@ import {
 } from 'react-native'
 
 import {auth, db} from '../../firebase/config'
-
-
 import MyCamera from '../components/MyCamera'
-
 
 export default class NewPost extends Component {
 
@@ -28,7 +25,7 @@ export default class NewPost extends Component {
   }
 
   guardarPost(){
-    console.log("guardar post")
+    console.log("Guardar post")
       db.collection('posts').add({
         createdAt: Date.now(),
         owner: auth.currentUser.email,
@@ -61,17 +58,19 @@ export default class NewPost extends Component {
         {
             this.state.showCamera ? 
             <MyCamera 
-                onImageUpload = {url => this.onImageUpload(url)}
-            /> :
+              onImageUpload = {url => this.onImageUpload(url)}
+          /> :
             <View style={styles.container}>
-                 <Text style={styles.titulo}> Nuevo Post</Text>
+                <Text style={styles.title}> Agregar Post</Text>
                  <TextInput
-                 style ={styles.campo} //o field si no funciona
+                 style ={styles.field} 
                  keyboardType = 'default'
                  placeholder='Descripcion'
-                 onChangeText={text => this.setState({description: text})} //aca se guarda el estado
-                
+                 onChangeText={(text) => this.setState(
+                    {description: text})} //aca se guarda el estado
+                multiline
                 />
+                 
                 <TouchableOpacity
                 style={styles.button}
                 onPress= {()=>this.guardarPost()}
@@ -79,7 +78,7 @@ export default class NewPost extends Component {
                     <Text style= {styles.buttonText}> Guardar post</Text>
                 </TouchableOpacity>
             </View>
-  }
+        }
       </View> 
     )
   }
@@ -89,7 +88,8 @@ const styles = StyleSheet.create({
     container:{
         paddingHorizontal:10,
         marginTop: 10,
-        height:'100%'
+        height:'100%',
+        width: '100%'
     },
     title:{
         marginBottom:20
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'green',
     },
     buttonText:{
-        color: '#fff'
+        color: '#black'
     }
 })
 
