@@ -6,33 +6,32 @@ import { View,
          TouchableOpacity, 
          StyleSheet, 
          FlatList } from 'react-native';
-import Home from './Home'
 
 class Buscador extends Component {
     constructor(props){
         super(props);
         this.state={
             posts:[],
-            user:'',
+            email:'',
             whoIs:'',
         }
     }
     
-    search(user){ 
-        db.collection('posteos').where('owner', '==', user).onSnapshot(
+    search(email){ 
+        db.collection('posts').where('owner', '==', email).onSnapshot(
             docs => {
-                let posts = [];
+                let postsFromDb = [];
                 docs.forEach( oneDoc => {
-                    posts.push({
+                    postsFromDb.push({
                         id: oneDoc.id,
                         data: oneDoc.data()
                     })
                 })
 
                 this.setState({
-                    posts: posts,
-                    user:'',
-                    whoIs:user,
+                    posts: postsFromDb,
+                    email:'',
+                    whoIs: email,
                 })
             }
         )
@@ -44,7 +43,6 @@ class Buscador extends Component {
 
     
     render(){
-        // console.log(this.state);
         return(
                 <View>
                 
@@ -53,24 +51,27 @@ class Buscador extends Component {
                         <TextInput 
                             style={styles.campo}
                             keyboardType='default'
-                            placeholder='Ingrese el nombre del usuario'
-                            value={this.state.user}
-                            onChangeText={text => this.setState({ user: text})}
+                            placeholder='Ingrese el email del usuario'
+                            value={this.state.email}
+                            onChangeText={text => this.setState({ email: text})}
                         />  
                         <TouchableOpacity
                             style={styles.button} 
-                            onPress={()=>this.search(this.state.user)}
+                            onPress={()=>this.search(this.state.email)}
                            
-                            disabled= {this.state.user == '' ? true : false }
+                            disabled= {this.state.email == '' ? true : false }
                             >
                             <Text style={ styles.text}>Buscar</Text>
                         </TouchableOpacity>                         
                     </View>
                     <FlatList 
-                        data={this.state.posts}
-                        keyExtractor={post => post.id}
-                        renderItem = { ({item}) => <Home info={item}
-                        {...this.props} />}
+                       data={this.state.posts}
+                       keyExtractor={(item) => item.id}
+                       renderItem={({ item }) => (
+                           <View style= {styles.container}> 
+                               <Text style= {styles.titulo2} >{item.data.owner}</Text>
+                               <Text style= {styles.text} > DESCRIPCION: {item.data.description}</Text>
+                               </View> )}
                     />
                     
                 </View>
@@ -85,6 +86,13 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 50,
         fontSize: 100,
+        paddingTop: 10,
+        paddingBottom: 10,
+    },
+    titulo2:{
+        textAlign: 'center',
+        fontWeight: 50,
+        fontSize: 50,
         paddingTop: 10,
         paddingBottom: 10,
     },
