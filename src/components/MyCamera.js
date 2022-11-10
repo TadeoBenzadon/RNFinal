@@ -92,7 +92,7 @@ export default class MyCamera extends Component {
                         </View> :
                         
 
-                        <View >
+                        <View style={styles.cameraBody}>
                             {/* Vista previa de la imagen */}
                             <Image 
                                 style={styles.preview}
@@ -123,8 +123,8 @@ export default class MyCamera extends Component {
 
 const styles = StyleSheet.create({
     cameraBody: {
-        height: '100%',
-        width:'100%'
+        height: '80%',
+        width:'80%'
     },
     button:{
         height: '30%',

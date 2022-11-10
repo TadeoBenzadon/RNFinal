@@ -1,14 +1,36 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
-import {auth } from '../../firebase/config'
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, FlatList } from 'react-native'
+import {auth , db} from '../../firebase/config'
 
 class Profile extends Component {
     constructor(props) {
       super(props)
       this.state = {
         email: '',
-        password :'',
+        posts:[],
+
       };
+    }
+
+    componentDidMount(email){ 
+        db.collection('posts').where('owner', '==', auth.currentUser.email).onSnapshot(
+            docs => {
+                let postsFromDb = [];
+                docs.forEach( oneDoc => {
+                    postsFromDb.push({
+                        id: oneDoc.id,
+                        data: oneDoc.data()
+                    })
+                })
+
+                this.setState({
+                    posts: postsFromDb,
+                    email:'',
+                })
+            }
+        )
+
+        
     }
 
 logOut (){
@@ -19,20 +41,37 @@ logOut (){
         render (){
           return (  <View> 
             <Text> Mi perfil</Text>
-           
             <TouchableOpacity onPress={() => this.logOut()}>
                 <Text>Cerrar Sesion</Text>
             </TouchableOpacity>
+           <FlatList 
+					data={this.state.posts}
+					keyExtractor={(item) => item.id}
+					renderItem={({ item }) => (
+						<View style= {styles.container}> 
+                            <Text style= {styles.titulo2} >{item.data.owner}</Text>
+							<Text style= {styles.text} > DESCRIPCION: {item.data.description}</Text>
+                            </View>
+                        
+                            )} 
+            />
+            
+            
         </View>)
-        }
+        } 
     };
 
+
+
+    
+
 const styles = StyleSheet.create({
+   
     container:{
         flex:1,
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor:'black'
+        backgroundColor:'white'
     },
     tittle:{
         fontSize:25,
@@ -52,7 +91,7 @@ const styles = StyleSheet.create({
     },
     text:{
         fontSize:15,
-        color: 'white',
+        color: 'black',
         margin: 10
     },
     button:{
