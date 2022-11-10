@@ -13,33 +13,39 @@ class Buscador extends Component {
         this.state={
             posts:[],
             email:'',
-            whoIs:'',
+            filterBy:'',
         }
     }
     
-    search(email){ 
-        db.collection('posts').where('owner', '==', email).onSnapshot(
-            docs => {
-                let postsFromDb = [];
-                docs.forEach( oneDoc => {
-                    postsFromDb.push({
-                        id: oneDoc.id,
-                        data: oneDoc.data()
+    search(filtro){ 
+        if(filtro==""){ 
+            db.collection('users').onSnapshot(
+                docs => {
+                    let usersFromDb = [];
+                    docs.forEach( oneDoc => {
+                        usersFromDb.push({
+                            id: oneDoc.id,
+                            data: oneDoc.data()
+                        })
                     })
-                })
-
-                this.setState({
-                    posts: postsFromDb,
-                    email:'',
-                    whoIs: email,
-                })
-            }
-        )
-
+    
+                    this.setState({
+                        users:usersFromDb,
+                    })
+                }
+            )
+        }
+       
         
     }
 
-
+    handleChange(e){
+        this.setState({
+          filterBy: e.target.value
+        },()=>{
+          this.filtrarPeliculas(this.state.filterBy)
+        })
+       }
 
     
     render(){
@@ -51,9 +57,9 @@ class Buscador extends Component {
                         <TextInput 
                             style={styles.campo}
                             keyboardType='default'
-                            placeholder='Ingrese el email del usuario'
-                            value={this.state.email}
-                            onChangeText={text => this.setState({ email: text})}
+                            placeholder='Ingrese el nombre del usuario'
+                            value={this.state.filterBy}
+                            onChangeText={(e) => {this.handleChange(e)}}
                         />  
                         <TouchableOpacity
                             style={styles.button} 
