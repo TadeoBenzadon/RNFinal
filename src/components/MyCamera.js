@@ -71,7 +71,7 @@ export default class MyCamera extends Component {
 
   render() {
     return (
-         <View style={styles.cameraBody}>
+         <View style={styles.container}>
             {
                 this.state.permission ? 
                     this.state.showCamera ?
@@ -124,25 +124,56 @@ export default class MyCamera extends Component {
 const styles = StyleSheet.create({
     cameraBody: {
         height: '80%',
-        width:'80%'
+        width:'80%',
+        alignItems:"center",
+        marginTop: 10,
+        display:"flex",
+        justifyContent:"center",
+    },
+    container:{
+        backgroundColor: '#cabfa5',
+        flex:4,
+        flexDirection: 'column',
+        borderWidth:1,
+        borderRadius:5,
+        paddingVertical:16,
+        paddingHorizontal:10,
+        alignItems:"center",
+        height: "100%",
+        marginTop: 10,
+        display:"flex",
+        justifyContent:"center",
     },
     button:{
-        height: '30%',
-        borderColor: '#ccc',
-        borderWidth: 1,
-        padding: 1,
-        borderRadius: 4,
-        marginTop: 20
+        borderRadius: 10,
+         padding:2,
+         borderWidth: 1,
+         borderColor: '#62504c',
+         backgroundColor: '#62504c',
+         width:200,
+         height: 40,
+         display:"flex",
+         justifyContent:"center",
+         alignItems:"center",
     },
     preview:{
-        height:'100%'
+        height: '80%',
+        width:'80%',
+        alignItems:"center",
+        marginTop: 10,
+        display:"flex",
+        justifyContent:"center",
     },
     buttonSave:{
-        height: '10%',
-        borderColor: '#ccc',
-        borderWidth: 3,
-        padding: 2,
-        borderRadius: 4,
-        marginTop: 20,
+        borderRadius: 10,
+         padding:2,
+         borderWidth: 1,
+         borderColor: '#62504c',
+         backgroundColor: '#62504c',
+         width:200,
+         height: 50,
+         display:"flex",
+         justifyContent:"center",
+         alignItems:"center",
     },
 }) 

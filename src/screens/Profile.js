@@ -41,9 +41,9 @@ logOut (){
     render (){
         return (  
         <View style= {styles.container}> 
-            <Text style={styles.text}> Mi perfil</Text>
+            <Text style= {styles.titulo} > Mi perfil </Text>
             <TouchableOpacity onPress={() => this.logOut()}>
-                <Text style={styles.text}>Cerrar Sesion</Text>
+                <Text style={styles.button}>Cerrar Sesion</Text>
             </TouchableOpacity>
            <FlatList 
 					data={this.state.posts}
@@ -70,51 +70,55 @@ logOut (){
 
 const styles = StyleSheet.create({
    
+    titulo:{
+        textAlign: 'center',
+        fontWeight: 50,
+        fontSize:50,
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginBottom:20,
+        color: "black",
+    },
+    button:{
+        borderRadius: 10,
+        padding:2,
+        borderWidth: 1,
+        borderColor: '#62504c',
+        backgroundColor: '#62504c',
+        width:200,
+        height: 50,
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
+  },
     container:{
-         paddingHorizontal:10,
-         alignItems:"center",
-         height: "100%",
-         marginTop: 10,
-         display:"flex",
-         justifyContent:"center",
-         backgroundColor: '#cabfa5',
-         borderColor: '#62504c',
+        backgroundColor: '#cabfa5',
+        flex:4,
+        flexDirection: 'column',
+        borderWidth:1,
+        borderRadius:5,
+        paddingVertical:16,
+        paddingHorizontal:10,
+        alignItems:"center",
+        height: "100%",
+        marginTop: 10,
+        display:"flex",
+        justifyContent:"center",
     },
     text:{
-         textAlign: 'center',
-         fontWeight: 50,
-         fontSize: 15,
-         paddingTop: 10,
-         paddingBottom: 10,
-         borderRadius: 10,
-         width:200,
-         height: 50,
-         paddingLeft: 10,
-         borderColor: '#62504c',
-         borderWidth: 1,
-         marginBottom:8,
-         borderRadius: 10,
+        textAlign: 'center',
+        fontWeight: 50,
+        fontSize: 15,
+        paddingTop: 10,
+        paddingBottom: 10,
     },
-    // subtittle:{
-    //     fontSize:18,
-    //     marginTop:20,
-    //     marginBottom:5,
-    //     fontWeight: 'bold',
-    //     color: 'white'
-
-    // },
-    // button:{
-    //     padding: 10,
-    //     backgroundColor: '#dc3545',
-    //     margin: 10,
-    //     borderRadius: 4,
-    //     color: 'white'
-    // },
-    // touchableText:{
-    //     fontWeight: 'bold',
-    //     color:'#fff',
-    //     textAlign: 'center'
-    // },
+    titulo2:{
+        textAlign: 'center',
+        fontWeight: 50,
+        fontSize: 50,
+        paddingTop: 10,
+        paddingBottom: 10,
+    },
     flatList:{
         flex: 4,
         marginHorizontal: 20
