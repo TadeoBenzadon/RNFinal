@@ -27,11 +27,11 @@ class Login extends Component {
 
 	render() {
 		return (
-			<View>
-				<Text>Ingresar</Text>
+			<View style={styles.contenedor}>
+				<Text style = {styles.titulo}>Ingresar</Text>
 				<View>
-					<TextInput style={styles.campo} placeholder="email" keyboardType="email-address" onChangeText={(text) => this.setState({ email: text })} value={this.state.email} />
-					<TextInput style={styles.campo} placeholder="password" keyboardType="default" secureTextEntry onChangeText={(text) => this.setState({ pass: text })} value={this.state.pass} />
+					<TextInput style={styles.campo} placeholder="Email" keyboardType="email-address" onChangeText={(text) => this.setState({ email: text })} value={this.state.email} />
+					<TextInput style={styles.campo} placeholder="Password" keyboardType="default" secureTextEntry onChangeText={(text) => this.setState({ pass: text })} value={this.state.pass} />
 					<Text style={styles.text} onPress={() => this.login(this.state.email, this.state.pass)}>Ingresar</Text>
 					<Text style={styles.text} onPress={() => this.props.navigation.navigate('Register')}>No tengo cuenta</Text>
                     <Text> {this.state.loginError}</Text>
@@ -46,42 +46,35 @@ class Login extends Component {
 
 const styles = StyleSheet.create({
 
-    titulo:{
-        textAlign: 'center',
-        fontWeight: 50,
-        fontSize: 100,
-        paddingTop: 10,
-        paddingBottom: 10,
+titulo:{
+      textAlign: 'center',
+      fontWeight: 50,
+      fontSize:50,
+      paddingTop: 10,
+      paddingBottom: 10,
+      marginBottom:20,
+      color: "black",
     },
-	campo: {
-         fontSize: 16,
-         borderColor: '#f00',
-         borderWidth: 1,
-         borderStyle: 'solid',
-         borderRadius: 4,
-         marginVertical: 8, 
-         marginHorizontal: 16,
-         color: '#f00',
+ contenedor:{
+      paddingHorizontal:10,
+      alignItems:"center",
+      height: "100%",
+      marginTop: 10,
+      display:"flex",
+      justifyContent:"center",
+      backgroundColor: '#cabfa5',
     },
-    bio:{
-         textAlign: 'center',
-         fontWeight: 50,
-         fontSize: 15,
-         paddingTop: 10,
-         paddingBottom: 10,
-    },
-    button:{
-         fontSize: 18,
-         color: 'red',
+ campo: {
+      borderRadius: 10,
+      width:200,
+      height: 50,
+      paddingLeft: 10,
+      borderColor: '#62504c',
+      borderWidth: 1,
+      marginBottom:8,
+      borderRadius: 10,
     },
     text:{
-         textAlign: 'center',
-         fontWeight: 50,
-         fontSize: 15,
-         paddingTop: 10,
-         paddingBottom: 10,
-    },
-    contra:{
          textAlign: 'center',
          fontWeight: 50,
          fontSize: 15,

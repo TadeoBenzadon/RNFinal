@@ -54,7 +54,7 @@ class Home extends Component {
 	render() {
 		return (
 			<>
-				<Text style= {styles.titulo} > Dream Team </Text>
+				<Text style= {styles.titulo} > Be Positive </Text>
 				
                 <FlatList 
 					data={this.state.posteos}
@@ -85,30 +85,46 @@ const styles = StyleSheet.create({
     titulo:{
         textAlign: 'center',
         fontWeight: 50,
-        fontSize: 100,
+        fontSize:50,
         paddingTop: 10,
         paddingBottom: 10,
+        marginBottom:20,
+        color: "black",
     },
     titulo2:{
         textAlign: 'center',
         fontWeight: 50,
-        fontSize: 50,
+        fontSize:20,
         paddingTop: 10,
         paddingBottom: 10,
+        marginBottom:20,
+        color: "black",
     },
     container:{
-        flex:1,
-        display: 'flex',
+        backgroundColor: '#cabfa5',
+        flex:4,
         flexDirection: 'column',
-        alignItems: 'center',
         borderWidth:1,
         borderRadius:5,
         paddingVertical:16,
-        paddingHorizontal:8,
+        paddingHorizontal:10,
+        alignItems:"center",
+        height: "100%",
+        marginTop: 10,
+        display:"flex",
+        justifyContent:"center",
     }, 
     button:{
-        fontSize: 18,
-        color: 'red',
+         borderRadius: 10,
+         padding:2,
+         borderWidth: 1,
+         borderColor: '#62504c',
+         backgroundColor: '#62504c',
+         width:200,
+         height: 50,
+         display:"flex",
+         justifyContent:"center",
+         alignItems:"center",
    },
     text:{
         textAlign: 'center',

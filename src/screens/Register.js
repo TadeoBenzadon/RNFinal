@@ -53,8 +53,8 @@ class Register extends Component {
 
     render(){
         return(
-            <View>
-                <Text style = {styles.titulo}>Dream Team</Text>
+            <View style={styles.contenedor}>
+                <Text style = {styles.titulo}>Be Positive</Text>
                 <View>
                     <TextInput
                      style = {styles.campo}
@@ -67,7 +67,7 @@ class Register extends Component {
                     <TextInput 
                      style = {styles.campo}
                      keyboardType = 'email-address'  
-                     placeholder= 'email'
+                     placeholder= 'Email'
                      value={this.state.email}
                      onChangeText={text => this.setState({email:text})}  //Utilizamos setState para actualizar el estado
                     /> 
@@ -75,7 +75,7 @@ class Register extends Component {
                     <TextInput 
                      style = {styles.campo}
                      keyboardType="default"
-                     placeholder="password"
+                     placeholder="Password"
                      secureTextEntry={true}
                      value={this.state.password}
                      onChangeText={contra => this.setState({password:contra})}
@@ -108,25 +108,36 @@ class Register extends Component {
 }
 
  const styles = StyleSheet.create({
-
+    contenedor:{
+        paddingHorizontal:10,
+        alignItems:"center",
+        height: "100%",
+        marginTop: 10,
+        display:"flex",
+        justifyContent:"center",
+        backgroundColor: '#cabfa5',
+    },
     titulo:{
         textAlign: 'center',
         fontWeight: 50,
-        fontSize: 100,
+        fontSize:50,
         paddingTop: 10,
         paddingBottom: 10,
+        marginBottom:20,
+        color: "black",
     },
 	campo: {
-         fontSize: 16,
-         borderColor: '#f00',
+         borderRadius: 10,
+         width:200,
+         height: 50,
+         paddingLeft: 10,
+         borderColor: '#62504c',
          borderWidth: 1,
-         borderStyle: 'solid',
-         borderRadius: 4,
-         marginVertical: 8, 
-         marginHorizontal: 16,
-         color: '#f00',
+         marginBottom:8,
+         borderRadius: 10,
     },
     bio:{
+         borderRadius: 10,
          textAlign: 'center',
          fontWeight: 50,
          fontSize: 15,
@@ -134,8 +145,16 @@ class Register extends Component {
          paddingBottom: 10,
     },
     button:{
-         fontSize: 18,
-         color: 'red',
+         borderRadius: 10,
+         padding:2,
+         borderWidth: 1,
+         borderColor: '#62504c',
+         backgroundColor: '#62504c',
+         width:200,
+         height: 50,
+         display:"flex",
+         justifyContent:"center",
+         alignItems:"center",
     },
     text:{
          textAlign: 'center',

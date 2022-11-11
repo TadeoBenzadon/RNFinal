@@ -50,7 +50,7 @@ class Buscador extends Component {
     
     render(){
         return(
-                <View>
+                <View style={styles.contenedor}>
                 
                     <Text style= {styles.titulo}>Buscador de publicaciones</Text>
                      <View >
@@ -74,10 +74,10 @@ class Buscador extends Component {
                        data={this.state.posts}
                        keyExtractor={(item) => item.id}
                        renderItem={({ item }) => (
-                           <View style= {styles.container}> 
+                           <View> 
                                <Text style= {styles.titulo2} >{item.data.owner}</Text>
                                <Text style= {styles.text} > DESCRIPCION: {item.data.description}</Text>
-                               </View> )}
+                            </View> )}
                     />
                     
                 </View>
@@ -91,9 +91,20 @@ const styles = StyleSheet.create({
     titulo:{
         textAlign: 'center',
         fontWeight: 50,
-        fontSize: 100,
+        fontSize:50,
         paddingTop: 10,
         paddingBottom: 10,
+        marginBottom:20,
+        color: "black",
+    },
+    contenedor:{
+        paddingHorizontal:10,
+        alignItems:"center",
+        height: "100%",
+        marginTop: 10,
+        display:"flex",
+        justifyContent:"center",
+        backgroundColor: '#cabfa5',
     },
     titulo2:{
         textAlign: 'center',
@@ -103,18 +114,26 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
     },
 	campo: {
-         fontSize: 16,
-         borderColor: '#f00',
-         borderWidth: 1,
-         borderStyle: 'solid',
-         borderRadius: 4,
-         marginVertical: 8, 
-         marginHorizontal: 16,
-         color: '#f00',
+        borderRadius: 10,
+        width:210,
+        height: 50,
+        paddingLeft: 10,
+        borderColor: '#62504c',
+        borderWidth: 1,
+        marginBottom:8,
+        borderRadius: 10,
     },
     button:{
-         fontSize: 18,
-         color: 'red',
+        borderRadius: 10,
+        padding:2,
+        borderWidth: 1,
+        borderColor: '#62504c',
+        backgroundColor: '#62504c',
+        width:210,
+        height: 50,
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
     },
     text:{
          textAlign: 'center',

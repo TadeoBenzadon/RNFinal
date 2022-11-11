@@ -38,27 +38,30 @@ logOut (){
     this.props.navigation.navigate('Register');
 }
 
-        render (){
-          return (  <View> 
-            <Text> Mi perfil</Text>
+    render (){
+        return (  
+        <View style= {styles.container}> 
+            <Text style={styles.text}> Mi perfil</Text>
             <TouchableOpacity onPress={() => this.logOut()}>
-                <Text>Cerrar Sesion</Text>
+                <Text style={styles.text}>Cerrar Sesion</Text>
             </TouchableOpacity>
            <FlatList 
 					data={this.state.posts}
 					keyExtractor={(item) => item.id}
 					renderItem={({ item }) => (
-						<View style= {styles.container}> 
+						<View> 
                             <Text style= {styles.titulo2} >{item.data.owner}</Text>
-							<Text style= {styles.text} > DESCRIPCION: {item.data.description}</Text>
-                            </View>
+							<Text style= {styles.text} > DESCRIPCION: {item.data.description}</Text>          
+                        </View>
                         
                             )} 
             />
             
             
-        </View>)
-        } 
+        </View>
+        )
+    }
+
     };
 
 
@@ -68,46 +71,52 @@ logOut (){
 const styles = StyleSheet.create({
    
     container:{
-        flex:1,
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor:'white'
-    },
-    tittle:{
-        fontSize:25,
-        marginTop:20,
-        marginBottom:30,
-        fontWeight: 'bold',
-        color: 'white',
-        textAlign: 'center'
-    },
-    subtittle:{
-        fontSize:18,
-        marginTop:20,
-        marginBottom:5,
-        fontWeight: 'bold',
-        color: 'white'
-
+         paddingHorizontal:10,
+         alignItems:"center",
+         height: "100%",
+         marginTop: 10,
+         display:"flex",
+         justifyContent:"center",
+         backgroundColor: '#cabfa5',
+         borderColor: '#62504c',
     },
     text:{
-        fontSize:15,
-        color: 'black',
-        margin: 10
+         textAlign: 'center',
+         fontWeight: 50,
+         fontSize: 15,
+         paddingTop: 10,
+         paddingBottom: 10,
+         borderRadius: 10,
+         width:200,
+         height: 50,
+         paddingLeft: 10,
+         borderColor: '#62504c',
+         borderWidth: 1,
+         marginBottom:8,
+         borderRadius: 10,
     },
-    button:{
-        padding: 10,
-        backgroundColor: '#dc3545',
-        margin: 10,
-        borderRadius: 4,
-        color: 'white'
-    },
-    touchableText:{
-        fontWeight: 'bold',
-        color:'#fff',
-        textAlign: 'center'
-    },
+    // subtittle:{
+    //     fontSize:18,
+    //     marginTop:20,
+    //     marginBottom:5,
+    //     fontWeight: 'bold',
+    //     color: 'white'
+
+    // },
+    // button:{
+    //     padding: 10,
+    //     backgroundColor: '#dc3545',
+    //     margin: 10,
+    //     borderRadius: 4,
+    //     color: 'white'
+    // },
+    // touchableText:{
+    //     fontWeight: 'bold',
+    //     color:'#fff',
+    //     textAlign: 'center'
+    // },
     flatList:{
-        flex: 1,
+        flex: 4,
         marginHorizontal: 20
     }
 })
