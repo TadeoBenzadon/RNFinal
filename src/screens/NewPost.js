@@ -104,9 +104,16 @@ const styles = StyleSheet.create({
         marginBottom:8
     },
     button: {
-        borderRadius: 2,
-        padding:3,
-        backgroundColor: 'green',
+      borderRadius: 10,
+      padding:2,
+      borderWidth: 1,
+      borderColor: '#62504c',
+      backgroundColor: '#62504c',
+      width:200,
+      height: 50,
+      display:"flex",
+      justifyContent:"center",
+      alignItems:"center",
     },
     buttonText:{
         color: '#black'

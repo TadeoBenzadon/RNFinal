@@ -54,7 +54,7 @@ export default class Post extends Component {
                         </TouchableOpacity>
                             )
                             }
-                            <Text style= {styles.text} >{this.props.likes.length} Likes </Text> 
+                         {/*   <Text style= {styles.text} >{this.props.likes.length} Likes </Text> */}
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('Comentarios', {id: this.props.id})}>
                             <Text style= {styles.button} >Comentar</Text>
                         </TouchableOpacity>
