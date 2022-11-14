@@ -1,96 +1,87 @@
 import React, {Component} from 'react';
-import { db } from '../../firebase/config';
+import { db } from '../../firebase/config'
 import { View,
          Text,
          TextInput,
          TouchableOpacity, 
          StyleSheet, 
          FlatList } from 'react-native';
-import Post from '../components/Post';
 
-class Buscador extends Component {
+class Buscador extends Component{
     constructor(props){
         super(props);
         this.state={
+            results:[],
             users:[],
-            email:'',
-            filterBy:'',
+            filtro:'',
         }
     }
-    
-    search(){ 
-        if(this.state.filterBy==""){ 
-            db.collection('users').onSnapshot(
-                docs => {
-                    let usersFromDb = [];
-                    docs.forEach( oneDoc => {
-                        usersFromDb.push({
-                            id: oneDoc.id,
-                            data: oneDoc.data()
-                        })
+    componentDidMount(){
+        db.collection('users').onSnapshot(
+            users => {
+                let usersFromDb = [];
+                users.forEach( (user) => {
+                    usersFromDb.push({
+                        id: user.id,
+                        data: user.data()
                     })
-                    let nuevoArray = usersFromDb.filter(function(user){
-                        //Si la propiedad username es igual a lo que puse en filtro
-                        if(user.username.includes(this.state.filterBy)){
-                         return true 
-                        }else { 
-                            return false
-                        }
-                    })
-                    this.setState({
-                        users:nuevoArray,
-                    })
+                })
+                this.setState(
+                    {
+                        users:usersFromDb
+                        
+                    }
+                )
+    })}
+    search(){  
+        if(this.state.filtro.length>0){
+
+            let nuevoArray = this.state.users.filter((user) => {
+                
+                return user.data.username.includes(this.state.filtro)
+                
+            })
+            
+            this.setState({
+                results:nuevoArray
+            })
+
+        }
+    }
                     
-                }
-            )
-        }
-       
-    }
-
-    handleChange(text){
-        this.setState({
-          filterBy: text
-        },()=>{
-          this.search(this.state.filterBy)
-        })
-       }
-
     
     render(){
-        console.log(this.state.users)
         return(
-                <View style={styles.contenedor}>
+                <View style={styles.container}>
                 
-                    <Text style= {styles.titulo}>Buscador de publicaciones</Text>
+                    <Text style= {styles.titulo}> Buscador de usuarios </Text>
                      <View >
                         <TextInput 
                             style={styles.campo}
                             keyboardType='default'
-                            placeholder='Ingrese el nombre del usuario'
+                            placeholder='Insert user name'
                             value={this.state.filterBy}
-                            onChangeText={(text) => {this.handleChange(text)}}
+                            onChangeText={(text) => {this.setState({filtro:text})}}
                         />  
                         <TouchableOpacity
                             style={styles.button} 
-                            onPress={()=>this.search(this.state.users)}
+                            onPress={()=>this.search()}
                             >
                             <Text style={ styles.text}>Buscar</Text>
                         </TouchableOpacity>                         
                     </View>
-                    {/* <FlatList 
-                       data={this.state.users}
+                    <FlatList 
+
+                       data={this.state.results}
                        keyExtractor={(item) => item.id}
                        renderItem={({ item }) => (
-                           <View> 
-                               <Text> {item.data.username}</Text>
+                           <View style={ styles.contenedor} > 
+                               <Text style={ styles.text}> {item.data.username}</Text>
                             </View> )}
                     />
-                     */}
                 </View>
+        )}}
 
-        )
-    }
-}
 
 const styles = StyleSheet.create({
 
@@ -112,13 +103,7 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         backgroundColor: '#cabfa5',
     },
-    titulo2:{
-        textAlign: 'center',
-        fontWeight: 50,
-        fontSize: 50,
-        paddingTop: 10,
-        paddingBottom: 10,
-    },
+    
 	campo: {
         borderRadius: 10,
         width:210,

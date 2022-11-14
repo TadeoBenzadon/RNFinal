@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text,  TouchableOpacity, StyleSheet } from 'react-native';
+import { Text,  TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { db, auth } from '../../firebase/config';
 import firebase from 'firebase';
 
@@ -11,7 +11,8 @@ export default class Post extends Component {
 			users: [],
 			posteos: [],
 			descripcion: '',
-            like: false 
+            like: false, 
+            cantLikes: 0
 		};
 	}
 	likear(idDelPosteo) {
@@ -19,8 +20,8 @@ export default class Post extends Component {
 				likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email),
 			})
 			.then(res=> {this.setState({
-                like: true
-            });})
+                like: true,
+                cantLikes: this.state.cantLikes + 1            });})
 			.catch((err) => console.log(err));
 	}
 
@@ -29,7 +30,8 @@ export default class Post extends Component {
         likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
         })
         .then(res=> {this.setState({
-            like: false
+            like: false, 
+            cantLikes: this.state.cantLikes - 1
         });})
         .catch ((err)=> console.log(err))
         }
@@ -38,6 +40,10 @@ export default class Post extends Component {
     return (
         <> 
        <Text style= {styles.titulo2} >{this.props.owner}</Text>
+       <Image 
+                    source={{uri: this.props.url}}
+                    resizeMode="contain"
+                />
 							<Text style= {styles.text} > DESCRIPCION: {this.props.description}</Text>
                             { this.state.like ? ( 
 							<TouchableOpacity onPress={()=> this.sacarLike(this.props.id)}>
@@ -47,7 +53,8 @@ export default class Post extends Component {
                             <Text style= {styles.button} >Dar Like</Text>
                         </TouchableOpacity>
                             )
-                            } 
+                            }
+                            <Text style= {styles.text} >{this.props.likes.length} Likes </Text> 
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('Comentarios', {id: this.props.id})}>
                             <Text style= {styles.button} >Comentar</Text>
                         </TouchableOpacity>

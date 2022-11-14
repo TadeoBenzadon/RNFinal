@@ -47,6 +47,8 @@ class Home extends Component {
                            id= {item.id}
                            description= {item.data.description}
                            owner= {item.data.owner}
+                           url = {item.data.url}
+                           likes= {item.data.likes}
                         {...this.props}
                            > </Post>
                          
