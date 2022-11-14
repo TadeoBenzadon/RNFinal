@@ -38,7 +38,8 @@ export default class NewPost extends Component {
          console.log("Posteo Exitoso")
          this.setState({
           description: ""
-         }, ()=> this.props.navigation.navigate('HomeMenu')
+         }, ()=>{
+          this.props.navigation.navigate('Home')}
          ) 
       })
       .catch( err => console.log(err))
@@ -53,6 +54,7 @@ export default class NewPost extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <View style={styles.container}>
         {

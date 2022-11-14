@@ -1,37 +1,55 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
 import {auth , db} from '../../firebase/config'
+import Post from '../components/Post'
 
-class Profile extends Component {
+export default class Profile extends Component {
     constructor(props) {
       super(props)
       this.state = {
-        email: '',
+        user: {},
         posts:[],
+        loading: true,
 
       };
     }
 
     componentDidMount(email){ 
+        db.collection ('users')
+        .where ('email', '==', auth.currentUser.email)
+        .onSnapshot ((docs)=> {
+            let usersFromDb ={};
+            docs.forEach ((doc)=> {
+                let user = doc.data();
+                console.log (user);
+                usersFromDb = {
+                    id:doc.id,
+                    data: user,
+                };
+            });
+            this.setState ({user: usersFromDb, loading: false});
+        });
+        
         db.collection('posts').where('owner', '==', auth.currentUser.email).onSnapshot(
             docs => {
                 let postsFromDb = [];
                 docs.forEach( oneDoc => {
+                    let posteo = oneDoc.data();
                     postsFromDb.push({
                         id: oneDoc.id,
-                        data: oneDoc.data()
+                        data: posteo
                     })
+                    console.log (postsFromDb)
                 })
 
                 this.setState({
                     posts: postsFromDb,
-                    email:'',
-                })
+                });
             }
         )
+    };
 
-        
-    }
+    
 
 logOut (){
     auth.signOut ();
@@ -40,33 +58,27 @@ logOut (){
 
     render (){
         return (  
-        <View style= {styles.container}> 
-            <Text style= {styles.titulo} > Mi perfil </Text>
-            <TouchableOpacity onPress={() => this.logOut()}>
+            <> 
+            {this.state.loading ? <Text>Cargando</Text>: <View>
+           <Text>{this.state.user.data.username}</Text>
+           <Text>{this.state.user.data.email}</Text>
+           <Text>{this.state.user.data.bio}</Text>
+           <Text>{this.state.posts.length} posteo</Text> 
+           <TouchableOpacity onPress={() => this.logOut()}>
                 <Text style={styles.button}>Cerrar Sesion</Text>
             </TouchableOpacity>
+            </View> }
            <FlatList 
 					data={this.state.posts}
 					keyExtractor={(item) => item.id}
-					renderItem={({ item }) => (
-						<View> 
-                            <Text style= {styles.titulo2} >{item.data.owner}</Text>
-							<Text style= {styles.text} > DESCRIPCION: {item.data.description}</Text>          
-                        </View>
-                        
-                            )} 
+					renderItem={({ item }) => <Post dataPost ={item}
+                {...this.props} />
+                }
+					
             />
-            
-            
-        </View>
-        )
-    }
-
-    };
-
-
-
-    
+</> 
+    )}
+            }
 
 const styles = StyleSheet.create({
    
@@ -124,5 +136,3 @@ const styles = StyleSheet.create({
         marginHorizontal: 20
     }
 })
-
-export default Profile
