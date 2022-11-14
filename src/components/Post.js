@@ -21,7 +21,8 @@ export default class Post extends Component {
 			})
 			.then(res=> {this.setState({
                 like: true,
-                cantLikes: this.state.cantLikes + 1            });})
+            //    cantLikes: this.state.cantLikes + 1           
+         });})
 			.catch((err) => console.log(err));
 	}
 
@@ -31,7 +32,7 @@ export default class Post extends Component {
         })
         .then(res=> {this.setState({
             like: false, 
-            cantLikes: this.state.cantLikes - 1
+           // cantLikes: this.state.cantLikes - 1
         });})
         .catch ((err)=> console.log(err))
         }
@@ -54,7 +55,7 @@ export default class Post extends Component {
                         </TouchableOpacity>
                             )
                             }
-                         {/*   <Text style= {styles.text} >{this.props.likes.length} Likes </Text> */}
+                           <Text style= {styles.text} >{this.props.likes} Likes </Text>  
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('Comentarios', {id: this.props.id})}>
                             <Text style= {styles.button} >Comentar</Text>
                         </TouchableOpacity>
