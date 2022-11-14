@@ -5,12 +5,12 @@ import Buscador from '../screens/Buscador';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-
 const Tab = createBottomTabNavigator();
 
-function HomeMenu() {
+export default function HomeMenu() {
 	return (
-		<Tab.Navigator>
+  
+	<Tab.Navigator>
 			<Tab.Screen name="Home" component={Home} />
 		
 			<Tab.Screen name="Profile" component={Profile} />
@@ -20,7 +20,12 @@ function HomeMenu() {
 			<Tab.Screen name="Buscador" component={Buscador} />
 		
 		</Tab.Navigator>
-	);
+  )
+  
 }
 
-export default HomeMenu;
+
+
+
+
+

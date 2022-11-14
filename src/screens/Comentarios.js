@@ -5,54 +5,44 @@ import { db, auth } from '../../firebase/config';
 import firebase from 'firebase';
 import Post from '../components/Post';
 
-class Home extends Component {
+class Comentarios extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			users: [],
-			posteos: [],
-			descripcion: '',
-            like: false 
+			comentarios: []
 		};
 	}
 	
 	componentDidMount() {
-	
-
-		db.collection('posts').orderBy('createdAt', 'desc').onSnapshot((docs) => {
-				let postsFromDb = [];
+	db.collection("posts").doc(this.props.route.params.id).onSnapshot((docs)=> {
+        let comentariosFromDb = [];
 				docs.forEach((doc) => {
-					let post = doc.data();
-					postsFromDb.push({ id: doc.id, data: post });
+					let comentarios = doc.data();
+					comentariosFromDb.push({ id: doc.id, data: comments });
 				});
-				console.log(postsFromDb);
+				console.log(comentariosFromDb);
 
-				this.setState({ posteos: postsFromDb });
-			});
+				this.setState({ comentarios: comentariosFromDb });
+    }) 
+
 	}
-  
+
+
         
 	render() {
-
 		return (
 			<>
-				<Text style= {styles.titulo} > Be Positive </Text>
-				
+				<Text style= {styles.titulo} > Comentarios </Text>
                 <FlatList 
-					data={this.state.posteos}
+					data={this.state.comentarios}
 					keyExtractor={(item) => item.id}
 					renderItem={({ item }) => (
 						<View style= {styles.container}> 
-                           <Post 
-                           id= {item.id}
-                           description= {item.data.description}
-                           owner= {item.data.owner}
-                        {...this.props}
-                           > </Post>
-                         
+                           <Text> {item.data.comentarios} </Text>
 						</View>
 					)}
 				/>
+
              
 			</>
 		);
@@ -113,7 +103,8 @@ const styles = StyleSheet.create({
    }
 })
 
-export default Home;
+export default Comentarios;
 
     
+
 

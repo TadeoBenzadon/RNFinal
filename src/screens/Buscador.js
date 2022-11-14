@@ -6,19 +6,20 @@ import { View,
          TouchableOpacity, 
          StyleSheet, 
          FlatList } from 'react-native';
+import Post from '../components/Post';
 
 class Buscador extends Component {
     constructor(props){
         super(props);
         this.state={
-            posts:[],
+            users:[],
             email:'',
             filterBy:'',
         }
     }
     
-    search(filtro){ 
-        if(filtro==""){ 
+    search(){ 
+        if(this.state.filterBy==""){ 
             db.collection('users').onSnapshot(
                 docs => {
                     let usersFromDb = [];
@@ -28,27 +29,35 @@ class Buscador extends Component {
                             data: oneDoc.data()
                         })
                     })
-    
-                    this.setState({
-                        users:usersFromDb,
+                    let nuevoArray = usersFromDb.filter(function(user){
+                        //Si la propiedad username es igual a lo que puse en filtro
+                        if(user.username.includes(this.state.filterBy)){
+                         return true 
+                        }else { 
+                            return false
+                        }
                     })
+                    this.setState({
+                        users:nuevoArray,
+                    })
+                    
                 }
             )
         }
        
-        
     }
 
-    handleChange(e){
+    handleChange(text){
         this.setState({
-          filterBy: e.target.value
+          filterBy: text
         },()=>{
-          this.filtrarPeliculas(this.state.filterBy)
+          this.search(this.state.filterBy)
         })
        }
 
     
     render(){
+        console.log(this.state.users)
         return(
                 <View style={styles.contenedor}>
                 
@@ -59,27 +68,24 @@ class Buscador extends Component {
                             keyboardType='default'
                             placeholder='Ingrese el nombre del usuario'
                             value={this.state.filterBy}
-                            onChangeText={(e) => {this.handleChange(e)}}
+                            onChangeText={(text) => {this.handleChange(text)}}
                         />  
                         <TouchableOpacity
                             style={styles.button} 
-                            onPress={()=>this.search(this.state.email)}
-                           
-                            disabled= {this.state.email == '' ? true : false }
+                            onPress={()=>this.search(this.state.users)}
                             >
                             <Text style={ styles.text}>Buscar</Text>
                         </TouchableOpacity>                         
                     </View>
-                    <FlatList 
-                       data={this.state.posts}
+                    {/* <FlatList 
+                       data={this.state.users}
                        keyExtractor={(item) => item.id}
                        renderItem={({ item }) => (
                            <View> 
-                               <Text style= {styles.titulo2} >{item.data.owner}</Text>
-                               <Text style= {styles.text} > DESCRIPCION: {item.data.description}</Text>
+                               <Text> {item.data.username}</Text>
                             </View> )}
                     />
-                    
+                     */}
                 </View>
 
         )
