@@ -1,39 +1,51 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-web';
-import { db, auth } from '../../firebase/config';
+import { db } from '../../firebase/config';
 import firebase from 'firebase';
-import Post from '../components/Post';
+
 
 class Comentarios extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			comentarios: []
+			comentarios: [], 
+            comentario: ''
 		};
 	}
 	
-	componentDidMount() {
-	db.collection("posts").doc(this.props.route.params.id).onSnapshot((docs)=> {
+	/* componentDidMount() {
+	db.collection("posts").doc(this.props.route.params.id).onSnapshot(docs=> {
         let comentariosFromDb = [];
-				docs.forEach((doc) => {
-					let comentarios = doc.data();
-					comentariosFromDb.push({ id: doc.id, data: comments });
+				docs.forEach(doc => {
+					comentariosFromDb.push({ id: doc.id, data: doc.data });
 				});
 				console.log(comentariosFromDb);
 
 				this.setState({ comentarios: comentariosFromDb });
     }) 
 
-	}
+	} */
 
+    guardarComentario(){
+        db.collection('posts')
+        .doc(this.props.route.params.id)
+        .update({
+         comments: firebase.firestore.FieldValue.arrayUnion(this.state.comentario)
+         })
+         .then((res) => {
+            this.props.navigation.navigate('Comentarios');
+        })
+          .catch( err => console.log(err))
+    
 
+    }
         
 	render() {
 		return (
 			<>
 				<Text style= {styles.titulo} > Comentarios </Text>
-                <FlatList 
+                {/* <FlatList 
 					data={this.state.comentarios}
 					keyExtractor={(item) => item.id}
 					renderItem={({ item }) => (
@@ -42,7 +54,20 @@ class Comentarios extends Component {
 						</View>
 					)}
 				/>
-
+ */}
+        <Text style= {styles.titulo} > Comentar </Text>
+        <TextInput
+                 style ={styles.campo} 
+                 onChangeText={(text) => this.setState(
+                    {comentario: text})} 
+                multiline
+                />
+                <TouchableOpacity
+                style={styles.button}
+                onPress= {()=>this.guardarComentario()}
+                >
+                    <Text style= {styles.button}> Guardar comentario</Text>
+                </TouchableOpacity>
              
 			</>
 		);
@@ -93,7 +118,16 @@ const styles = StyleSheet.create({
          display:"flex",
          justifyContent:"center",
          alignItems:"center",
-   },
+   }, campo: {
+    borderRadius: 10,
+    width:200,
+    height: 50,
+    paddingLeft: 10,
+    borderColor: '#62504c',
+    borderWidth: 1,
+    marginBottom:8,
+    borderRadius: 10,
+  },
     text:{
         textAlign: 'center',
         fontWeight: 50,
