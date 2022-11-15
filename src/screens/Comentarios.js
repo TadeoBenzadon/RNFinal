@@ -15,10 +15,14 @@ class Comentarios extends Component {
 	}
 	
 	 componentDidMount() {
-        const idDoc = this.props.route.params.id
-        db.collection('posts').doc(idDoc) .onSnapshot(doc => {
+
+        db.collection('posts').doc(this.props.route.params.id).onSnapshot(doc => {
+            let comentariosFromDb= [];
+            let coments = doc.data().comments
+            comentariosFromDb.push ({ id: doc.id, data: coments })
+            console.log(comentariosFromDb);
             this.setState({
-                comentarios: doc.data().comments
+                comentarios: comentariosFromDb
             })
         })
 
@@ -47,7 +51,8 @@ class Comentarios extends Component {
 					keyExtractor={(item) => item.id}
 					renderItem={({ item }) => (
 						<View style= {styles.container}> 
-                           <Text style= {styles.text} > {item.comments}  </Text>
+                           <Text style= {styles.text}> {item.data} </Text>
+                           
 						</View>
 					)}
 				/>
