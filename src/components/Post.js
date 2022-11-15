@@ -37,7 +37,7 @@ export default class Post extends Component {
         .catch ((err)=> console.log(err))
         }
 
-  render() {
+  render() { 
     return (
         <> 
        <Text style= {styles.titulo2} >{this.props.owner}</Text>

@@ -14,18 +14,15 @@ class Comentarios extends Component {
 		};
 	}
 	
-	/* componentDidMount() {
-	db.collection("posts").doc(this.props.route.params.id).onSnapshot(docs=> {
-        let comentariosFromDb = [];
-				docs.forEach(doc => {
-					comentariosFromDb.push({ id: doc.id, data: doc.data });
-				});
-				console.log(comentariosFromDb);
+	 componentDidMount() {
+        const idDoc = this.props.route.params.id
+        db.collection('posts').doc(idDoc) .onSnapshot(doc => {
+            this.setState({
+                comentarios: doc.data().comments
+            })
+        })
 
-				this.setState({ comentarios: comentariosFromDb });
-    }) 
-
-	} */
+	} 
 
     guardarComentario(){
         db.collection('posts')
@@ -45,16 +42,16 @@ class Comentarios extends Component {
 		return (
 			<>
 				<Text style= {styles.titulo} > Comentarios </Text>
-                {/* <FlatList 
+                 <FlatList 
 					data={this.state.comentarios}
 					keyExtractor={(item) => item.id}
 					renderItem={({ item }) => (
 						<View style= {styles.container}> 
-                           <Text> {item.data.comentarios} </Text>
+                           <Text style= {styles.text} > {item.comments}  </Text>
 						</View>
 					)}
 				/>
- */}
+ 
         <Text style= {styles.titulo} > Comentar </Text>
         <TextInput
                  style ={styles.campo} 
