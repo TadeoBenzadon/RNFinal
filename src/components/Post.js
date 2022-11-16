@@ -59,6 +59,9 @@ export default class Post extends Component {
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('Comentarios', {id: this.props.id})}>
                             <Text style= {styles.button} >Comentar</Text>
                         </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Perfiles', {id: this.props.id})}>
+                            <Text style= {styles.button} >Ver posteos</Text>
+                        </TouchableOpacity>
         </>
     )
   }

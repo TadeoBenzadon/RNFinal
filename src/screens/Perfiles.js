@@ -1,65 +1,51 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { FlatList } from 'react-native-web';
-import { db, auth } from '../../firebase/config';
-import Post from '../components/Post';
+import { db , auth} from '../../firebase/config';
+import Post from '../components/Post'
 
-class Home extends Component {
+class Perfiles extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			users: [],
-			posteos: [],
-			descripcion: '',
-            like: false 
+			posteos: [], 
 		};
 	}
 	
-	componentDidMount() {
-	
+	 componentDidMount() {
 
-		db.collection('posts').orderBy('createdAt', 'desc').onSnapshot((docs) => {
-				let postsFromDb = [];
-				docs.forEach((doc) => {
-					let post = doc.data();
-					postsFromDb.push({ id: doc.id, data: post });
-				});
-				console.log(postsFromDb);
+        db.collection('posts').doc(this.props.route.params.email).onSnapshot(doc => {
+            let posteosFromDb= [];
+            let posts = doc.data();
+            posteosFromDb.push ({ id: doc.id, data: posts })
+            console.log(posteosFromDb);
+            this.setState({
+                posteos: posteosFromDb
+            })
+        }
 
-				this.setState({ posteos: postsFromDb });
-			});
-	}
-  
+	)} 
+
         
 	render() {
-
 		return (
 			<>
-				<Text style= {styles.titulo} > Be Positive </Text>
-				
-                <FlatList 
+				<Text style= {styles.titulo} > Posteos </Text>
+                 <FlatList 
 					data={this.state.posteos}
 					keyExtractor={(item) => item.id}
 					renderItem={({ item }) => (
 						<View style= {styles.container}> 
-                           <Post 
-                           id= {item.id}
-                           description= {item.data.description}
-                           owner= {item.data.owner}
-                           url = {item.data.url}
-                           likes= {item.data.likes}
-                        {...this.props}
-                           > </Post>
-                         
+                         <Text style= {styles.text}> {item.data} </Text>
 						</View>
 					)}
 				/>
-             
-			</>
+       
+            </>
 		);
 	}
-}
 
+}
 const styles = StyleSheet.create({
     titulo:{
         textAlign: 'center',
@@ -104,7 +90,16 @@ const styles = StyleSheet.create({
          display:"flex",
          justifyContent:"center",
          alignItems:"center",
-   },
+   }, campo: {
+    borderRadius: 10,
+    width:200,
+    height: 50,
+    paddingLeft: 10,
+    borderColor: '#62504c',
+    borderWidth: 1,
+    marginBottom:8,
+    borderRadius: 10,
+  },
     text:{
         textAlign: 'center',
         fontWeight: 50,
@@ -114,7 +109,8 @@ const styles = StyleSheet.create({
    }
 })
 
-export default Home;
+export default Perfiles;
 
     
+
 

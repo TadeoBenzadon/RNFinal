@@ -6,6 +6,7 @@ import Login from './src/screens/Login';
 import HomeMenu from './src/components/HomeMenu';
 
 import Comentarios from './src/screens/Comentarios';
+import Perfiles from './src/screens/Perfiles';
 
 
 const Stack = createNativeStackNavigator();
@@ -19,6 +20,7 @@ export default function App() {
 				<Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
 				<Stack.Screen options={{ headerShown: false }} name="HomeMenu" component={HomeMenu}/>
 				<Stack.Screen options={{ headerShown: false }} name="Comentarios" component={Comentarios}/>
+				<Stack.Screen options={{ headerShown: false }} name="Perfiles" component={Perfiles}/>
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
