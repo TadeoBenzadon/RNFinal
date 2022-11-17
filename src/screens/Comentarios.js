@@ -22,7 +22,7 @@ class Comentarios extends Component {
             comentariosFromDb.push ({ id: doc.id, data: coments })
             console.log(comentariosFromDb);
             this.setState({
-                comentarios: comentariosFromDb
+                comentarios: coments
             })
         })
 
