@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-web';
-import { db } from '../../firebase/config';
+import { db, auth} from '../../firebase/config';
 import firebase from 'firebase';
 
 
@@ -17,10 +17,8 @@ class Comentarios extends Component {
 	 componentDidMount() {
 
         db.collection('posts').doc(this.props.route.params.id).onSnapshot(doc => {
-            let comentariosFromDb= [];
+        
             let coments = doc.data().comments
-            comentariosFromDb.push ({ id: doc.id, data: coments })
-            console.log(comentariosFromDb);
             this.setState({
                 comentarios: coments
             })
@@ -32,7 +30,13 @@ class Comentarios extends Component {
         db.collection('posts')
         .doc(this.props.route.params.id)
         .update({
-         comments: firebase.firestore.FieldValue.arrayUnion(this.state.comentario)
+            comments: firebase.firestore.FieldValue.arrayUnion({
+                owner: auth.currentUser.email,
+                createdAt: Date.now(),
+                comentario: this.state.comentario
+            })
+      
+
          })
          .then((res) => {
             this.props.navigation.navigate('Comentarios');
@@ -43,19 +47,25 @@ class Comentarios extends Component {
     }
         
 	render() {
+        console.log(this.state.comentarios)
 		return (
 			<>
-				<Text style= {styles.titulo} > Comentarios </Text>
-                 <FlatList 
+            { this.state.comentarios.length==0  ? (<> <Text style= {styles.titulo} > Aún no hay comentarios </Text> </>) : ( <> 
+                <Text style= {styles.titulo} > Comentarios </Text>
+                <FlatList 
 					data={this.state.comentarios}
 					keyExtractor={(item) => item.id}
 					renderItem={({ item }) => (
 						<View style= {styles.container}> 
-                           <Text style= {styles.text}> {item.data} </Text>
+                           <Text style= {styles.text}><b> {item.owner}</b>  {item.comentario} </Text>
                            
 						</View>
 					)}
-				/>
+
+				/> 
+               
+            </>) } 
+				
  
         <Text style= {styles.titulo} > Comentar </Text>
         <TextInput
@@ -70,6 +80,10 @@ class Comentarios extends Component {
                 >
                     <Text style= {styles.button}> Guardar comentario</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
+                            <Text style= {styles.button} >Volver</Text>
+                        </TouchableOpacity>
              
 			</>
 		);

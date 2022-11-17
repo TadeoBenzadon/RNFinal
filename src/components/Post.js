@@ -38,10 +38,11 @@ export default class Post extends Component {
         }
 
   render() { 
-    console.log(this.props)
+    //console.log(this.props)
     return (
-        <> 
+        <>  <TouchableOpacity onPress={() => this.props.navigation.navigate('Perfiles', {email: this.props.owner})}>
        <Text style= {styles.titulo2} >{this.props.owner}</Text>
+       </TouchableOpacity>
        <Image 
                     style= {styles.image}
                     source={{uri: this.props.url}}
@@ -57,13 +58,11 @@ export default class Post extends Component {
                         </TouchableOpacity>
                             )
                             }
-                           <Text style= {styles.text} >{this.props.likes} Likes </Text>  
+                           <Text style= {styles.text} >{this.props.likes.length} Likes </Text>  
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('Comentarios', {id: this.props.id})}>
                             <Text style= {styles.button} >Comentar</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Perfiles', {email: this.props.owner})}>
-                            <Text style= {styles.button} >Ver posteos</Text>
-                        </TouchableOpacity>
+                      
         </>
     )
   }
@@ -81,7 +80,9 @@ const styles = StyleSheet.create({
         color: "black",
     },
     image: {
-        height: 300
+        height: 300, 
+        width:200
+
     }, 
     
     button:{

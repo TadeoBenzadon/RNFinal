@@ -52,35 +52,42 @@ class Buscador extends Component{
     
     render(){
         return(
-                <View style={styles.container}>
-                
-                    <Text style= {styles.titulo}> Buscador de usuarios </Text>
-                     <View >
-                        <TextInput 
-                            style={styles.campo}
-                            keyboardType='default'
-                            placeholder='Insert user name'
-                            value={this.state.filterBy}
-                            onChangeText={(text) => {this.setState({filtro:text})}}
-                        />  
-                        <TouchableOpacity
-                            style={styles.button} 
-                            onPress={()=>this.search()}
-                            >
-                            <Text style={ styles.text}>Buscar</Text>
-                        </TouchableOpacity>                         
-                    </View>
-                    <FlatList 
 
-                       data={this.state.results}
-                       keyExtractor={(item) => item.id}
-                       renderItem={({ item }) => (
-                           <View style={ styles.contenedor} > 
-                               <Text style={ styles.text}> {item.data.username}</Text>
-                            </View> )}
-                    />
+            <> 
+            <Text style= {styles.titulo}> Buscador de usuarios </Text>
+                 <View >
+                    <TextInput 
+                        style={styles.campo}
+                        keyboardType='default'
+                        placeholder='Insert user name'
+                        value={this.state.filterBy}
+                        onChangeText={(text) => {this.setState({filtro:text})}}
+                    />  
+                    <TouchableOpacity
+                        style={styles.button} 
+                        onPress={()=>this.search()}
+                        >
+                        <Text style={ styles.text}>Buscar</Text>
+                    </TouchableOpacity>                         
                 </View>
-        )}}
+            { this.state.results == 0 ? ( <> <Text> El email/ user name no existe</Text></> ) : (<>  <View style={styles.container}>
+                
+                <FlatList 
+
+                   data={this.state.results}
+                   keyExtractor={(item) => item.id}
+                   renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Perfiles', {email: item.data.owner})}>
+                       <View style={ styles.contenedor} > 
+                           <Text style={ styles.text}> {item.data.username}</Text>
+                        </View> 
+                        </TouchableOpacity>)}
+                />
+            </View></> )}
+               
+                </>
+        )}
+        }
 
 
 const styles = StyleSheet.create({
