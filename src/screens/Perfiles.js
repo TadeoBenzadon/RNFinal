@@ -1,49 +1,85 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet} from 'react-native';
 import { FlatList } from 'react-native-web';
-import { db , auth} from '../../firebase/config';
+import { db } from '../../firebase/config';
 import Post from '../components/Post'
 
 class Perfiles extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			posteos: [], 
+            user: {},
+            posts: [],
+            loading: true,
 		};
 	}
 	
-	 componentDidMount() {
+    componentDidMount() {
+        console.log(this.props)
+        db.collection('users')
+            .where('email', '==',this.props.route.params.email)
+            .onSnapshot((docs) => {
+                let usersFromDb = {};
+                docs.forEach((doc) => {
+                    let user = doc.data();
+                    console.log(user);
+                    usersFromDb = {
+                        id: doc.id,
+                        data: user,
+                    };
+                });
+                this.setState({ user: usersFromDb, loading: false });
+            });
 
-        db.collection('posts').doc(this.props.route.params.email).onSnapshot(doc => {
-            let posteosFromDb= [];
-            let posts = doc.data();
-            posteosFromDb.push ({ id: doc.id, data: posts })
-            console.log(posteosFromDb);
-            this.setState({
-                posteos: posteosFromDb
-            })
-        }
+        db.collection('posts').where('owner', '==', this.props.route.params.email).onSnapshot(
+            docs => {
+                let postsFromDb = [];
+                docs.forEach(oneDoc => {
+                    let posteo = oneDoc.data();
+                    postsFromDb.push({
+                        id: oneDoc.id,
+                        data: posteo
+                    })
+                    console.log(postsFromDb)
+                })
 
-	)} 
-
+                this.setState({
+                    posts: postsFromDb,
+                });
+            }
+        )
+} 
         
-	render() {
-		return (
-			<>
-				<Text style= {styles.titulo} > Posteos </Text>
-                 <FlatList 
-					data={this.state.posteos}
-					keyExtractor={(item) => item.id}
-					renderItem={({ item }) => (
-						<View style= {styles.container}> 
-                         <Text style= {styles.text}> {item.data} </Text>
-						</View>
-					)}
-				/>
-       
-            </>
-		);
-	}
+render() {
+    return (
+        <>
+            {this.state.loading ? <Text>Cargando</Text> :
+                <View>
+                    <Text>{this.state.user.data.username}</Text>
+                    <Text>{this.state.user.data.email}</Text>
+                    <Text>{this.state.user.data.bio}</Text>
+                    <Text>{this.state.posts.length} posteo</Text>
+                </View>}
+            <FlatList
+                data={this.state.posts}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                    <View style={styles.container}>
+                        <Post 
+                        id= {item.id}
+                       description= {item.data.description}
+                       owner= {item.data.owner}
+                       url = {item.data.url}
+                       likes= {item.data.likes}
+                            {...this.props} >
+
+                        </Post>
+                    </View>
+    )}
+            />
+        </>
+    )
+};
 
 }
 const styles = StyleSheet.create({
