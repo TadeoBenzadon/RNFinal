@@ -38,10 +38,12 @@ export default class Post extends Component {
         }
 
   render() { 
+    console.log(this.props)
     return (
         <> 
        <Text style= {styles.titulo2} >{this.props.owner}</Text>
        <Image 
+                    style= {styles.image}
                     source={{uri: this.props.url}}
                     resizeMode="contain"
                 />
@@ -78,6 +80,9 @@ const styles = StyleSheet.create({
         marginBottom:20,
         color: "black",
     },
+    image: {
+        height: 300
+    }, 
     
     button:{
          borderRadius: 10,
