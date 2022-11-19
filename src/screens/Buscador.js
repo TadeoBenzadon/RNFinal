@@ -14,6 +14,7 @@ class Buscador extends Component{
             results:[],
             users:[],
             filtro:'',
+            error: ''
         }
     }
     componentDidMount(){
@@ -34,7 +35,7 @@ class Buscador extends Component{
                 )
     })}
     search(){  
-        if(this.state.filtro.length>0){
+        if(this.state.filtro.length >0){
 
             let nuevoArray = this.state.users.filter((user) => {
                 
@@ -47,10 +48,16 @@ class Buscador extends Component{
             })
 
         }
-    }
+        if(this.state.results.length == 0){
+            this.setState({
+                error: "No hay ningun usuario con ese nombre"
+            })
+
+        }    }
                     
     
     render(){
+        
         return(
 
             <> 
@@ -70,20 +77,20 @@ class Buscador extends Component{
                         <Text style={ styles.text}>Buscar</Text>
                     </TouchableOpacity>                         
                 </View>
-            { this.state.results == 0 ? ( <> <Text> El email/ user name no existe</Text></> ) : (<>  <View style={styles.container}>
+            { this.state.resultado > 0 ? (<>  <View style={styles.container}>
                 
                 <FlatList 
 
                    data={this.state.results}
                    keyExtractor={(item) => item.id}
                    renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Perfiles', {email: item.data.owner})}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Perfiles', {email: item.data.email})}>
                        <View style={ styles.contenedor} > 
                            <Text style={ styles.text}> {item.data.username}</Text>
                         </View> 
                         </TouchableOpacity>)}
                 />
-            </View></> )}
+            </View></>  ) : ( <> <Text> {this.state.error}</Text></> )}
                
                 </>
         )}
