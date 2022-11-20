@@ -83,24 +83,7 @@ render() {
 
 }
 const styles = StyleSheet.create({
-    titulo:{
-        textAlign: 'center',
-        fontWeight: 50,
-        fontSize:50,
-        paddingTop: 10,
-        paddingBottom: 10,
-        marginBottom:20,
-        color: "black",
-    },
-    titulo2:{
-        textAlign: 'center',
-        fontWeight: 50,
-        fontSize:20,
-        paddingTop: 10,
-        paddingBottom: 10,
-        marginBottom:20,
-        color: "black",
-    },
+    
     container:{
         backgroundColor: '#cabfa5',
         flex:4,
@@ -115,34 +98,10 @@ const styles = StyleSheet.create({
         display:"flex",
         justifyContent:"center",
     }, 
-    button:{
-         borderRadius: 10,
-         padding:2,
-         borderWidth: 1,
-         borderColor: '#62504c',
-         backgroundColor: '#62504c',
-         width:200,
-         height: 50,
-         display:"flex",
-         justifyContent:"center",
-         alignItems:"center",
-   }, campo: {
-    borderRadius: 10,
-    width:200,
-    height: 50,
-    paddingLeft: 10,
-    borderColor: '#62504c',
-    borderWidth: 1,
-    marginBottom:8,
-    borderRadius: 10,
-  },
-    text:{
-        textAlign: 'center',
-        fontWeight: 50,
-        fontSize: 15,
-        paddingTop: 10,
-        paddingBottom: 10,
-   }
+    flatList: {
+        flex: 4,
+        marginHorizontal: 20
+    }
 })
 
 export default Perfiles;

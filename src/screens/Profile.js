@@ -120,20 +120,7 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
     },
-    text: {
-        textAlign: 'center',
-        fontWeight: 50,
-        fontSize: 15,
-        paddingTop: 10,
-        paddingBottom: 10,
-    },
-    titulo2: {
-        textAlign: 'center',
-        fontWeight: 50,
-        fontSize: 50,
-        paddingTop: 10,
-        paddingBottom: 10,
-    },
+    
     flatList: {
         flex: 4,
         marginHorizontal: 20
