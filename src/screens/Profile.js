@@ -60,10 +60,11 @@ export default class Profile extends Component {
             <>
                 {this.state.loading ? <Text>Cargando</Text> :
                     <View>
-                        <Text>{this.state.user.data.username}</Text>
-                        <Text>{this.state.user.data.email}</Text>
-                        <Text>{this.state.user.data.bio}</Text>
-                        <Text>{this.state.posts.length} posteo</Text>
+                        <Text style= {styles.subtitulo} >Datos personales</Text> 
+                        <Text style= {styles.texto} >Nombre: {this.state.user.data.username}</Text>
+                        <Text style= {styles.texto} >Mail: {this.state.user.data.email}</Text>
+                        <Text style= {styles.texto} >Biografia:{this.state.user.data.bio}</Text>
+                        <Text style= {styles.texto} >Cantidad de posteos: {this.state.posts.length} posteo</Text>
                         <TouchableOpacity onPress={() => this.logOut()}>
                             <Text style={styles.button}>Cerrar Sesion</Text>
                         </TouchableOpacity>
@@ -94,18 +95,7 @@ export default class Profile extends Component {
 const styles = StyleSheet.create({
 
 
-    button: {
-        borderRadius: 10,
-        padding: 2,
-        borderWidth: 1,
-        borderColor: '#62504c',
-        backgroundColor: '#62504c',
-        width: 200,
-        height: 50,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-    },
+    
     container: {
         backgroundColor: '#cabfa5',
         flex: 4,
@@ -119,6 +109,30 @@ const styles = StyleSheet.create({
         marginTop: 10,
         display: "flex",
         justifyContent: "center",
+    },
+    button: {
+        borderRadius: 10,
+         padding:2,
+         borderWidth: 1,
+         borderColor: '#62504c',
+         backgroundColor: '#62504c',
+         width:200,
+         height: 50,
+         display:"flex",
+         justifyContent:"center",
+         alignItems:"center",
+    },
+    subtitulo:{
+        textAlign: "left",
+        color: "black",
+        fontWeight: "600",
+        fontSize: 15,
+        padding: 5,
+    },
+    texto :{
+        color: "black",
+        padding:2,
+        margin: 5,
     },
     
     flatList: {
