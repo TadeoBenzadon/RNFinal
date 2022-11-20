@@ -59,7 +59,7 @@ export default class Profile extends Component {
         return (
             <>
                 {this.state.loading ? <Text>Cargando</Text> :
-                    <View>
+                    <View style ={styles.background}>
                         <Text style= {styles.subtitulo} >Datos personales</Text> 
                         <Text style= {styles.texto} >Nombre: {this.state.user.data.username}</Text>
                         <Text style= {styles.texto} >Mail: {this.state.user.data.email}</Text>
@@ -95,7 +95,9 @@ export default class Profile extends Component {
 const styles = StyleSheet.create({
 
 
-    
+    background:{
+        backgroundColor: '#cabfa5',
+    },
     container: {
         backgroundColor: '#cabfa5',
         flex: 4,
@@ -123,7 +125,7 @@ const styles = StyleSheet.create({
          alignItems:"center",
     },
     subtitulo:{
-        textAlign: "left",
+        textAlign: "center",
         color: "black",
         fontWeight: "600",
         fontSize: 15,
@@ -133,6 +135,7 @@ const styles = StyleSheet.create({
         color: "black",
         padding:2,
         margin: 5,
+        textAlign: "center",
     },
     
     flatList: {
