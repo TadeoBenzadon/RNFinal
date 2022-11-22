@@ -7,18 +7,18 @@ class Login extends Component {
 		super();
 		this.state = {
 			email: '',
-			pass: '',
+			password: '',
             loginError: ''
 		};
 	}
      
-	login(email, pass) {
+	login(email, password) {
 		auth
-			.signInWithEmailAndPassword(email, pass)
+			.signInWithEmailAndPassword(email, password)
 			.then((res) => {
 				this.props.navigation.navigate('HomeMenu');
 			})
-			.catch((error) => {console.log(error)
+			.catch((error) => {
                 this.setState({
                       loginError: error.message
                  })
@@ -31,8 +31,8 @@ class Login extends Component {
 				<Text style = {styles.titulo}>Ingresar</Text>
 				<View>
 					<TextInput style={styles.campo} placeholder="Email" keyboardType="email-address" onChangeText={(text) => this.setState({ email: text })} value={this.state.email} />
-					<TextInput style={styles.campo} placeholder="Password" keyboardType="default" secureTextEntry onChangeText={(text) => this.setState({ pass: text })} value={this.state.pass} />
-					<Text style={styles.text} onPress={() => this.login(this.state.email, this.state.pass)}>Ingresar</Text>
+					<TextInput style={styles.campo} placeholder="Password" keyboardType="default" secureTextEntry onChangeText={(text) => this.setState({ password: text })} value={this.state.pass} />
+					<Text style={styles.text} onPress={() => this.login(this.state.email, this.state.password)}>Ingresar</Text>
 					<Text style={styles.text} onPress={() => this.props.navigation.navigate('Register')}>No tengo cuenta</Text>
                     <Text> {this.state.loginError}</Text>
 				</View>
