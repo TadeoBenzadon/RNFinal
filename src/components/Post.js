@@ -21,7 +21,7 @@ export default class Post extends Component {
 			})
 			.then(res=> {this.setState({
                 like: true,
-            //    cantLikes: this.state.cantLikes + 1           
+  
          });})
 			.catch((err) => console.log(err));
 	}
@@ -32,13 +32,13 @@ export default class Post extends Component {
         })
         .then(res=> {this.setState({
             like: false, 
-           // cantLikes: this.state.cantLikes - 1
+
         });})
         .catch ((err)=> console.log(err))
         }
 
   render() { 
-    //console.log(this.props)
+
     return (
         <>  <TouchableOpacity onPress={() => this.props.navigation.navigate('Perfiles', {email: this.props.owner})}>
        <Text style= {styles.titulo2} >{this.props.owner}</Text>

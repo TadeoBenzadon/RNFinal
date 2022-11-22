@@ -35,7 +35,7 @@ class Buscador extends Component{
                 )
     })}
     search(){  
-        if(this.state.filtro.length >0){
+      if(this.state.filtro.length >0){
 
             let nuevoArray = this.state.users.filter((user) => {
                 
@@ -53,8 +53,14 @@ class Buscador extends Component{
                 error: "No hay ningun usuario con ese nombre"
             })
 
-        }    }
-                    
+        }     
+        if(this.state.filtro.length == 0){
+            this.setState({
+                error: "El campo no puede estar vacio"
+            })
+
+        }     
+    }      
     
     render(){
         
@@ -77,7 +83,7 @@ class Buscador extends Component{
                         <Text style={ styles.text}>Buscar</Text>
                     </TouchableOpacity>                         
                 </View>
-            { this.state.resultado > 0 ? (<>  <View style={styles.container}>
+           <>  <View style={styles.container}>
                 
                 <FlatList 
 
@@ -90,7 +96,7 @@ class Buscador extends Component{
                         </View> 
                         </TouchableOpacity>)}
                 />
-            </View></>  ) : ( <> <Text> {this.state.error}</Text></> )}
+            </View></>  {this.state.results==0 ? (<> <Text> {this.state.error}</Text></> ):( <></>) }
                
                 </>
         )}
@@ -107,6 +113,7 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         marginBottom:20,
         color: "black",
+        backgroundColor: '#cabfa5'
     },
     contenedor:{
         paddingHorizontal:10,
@@ -127,6 +134,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginBottom:8,
         borderRadius: 10,
+        
     },
     button:{
         borderRadius: 10,
@@ -146,6 +154,7 @@ const styles = StyleSheet.create({
          fontSize: 15,
          paddingTop: 10,
          paddingBottom: 10,
+         
     }
  });
 
