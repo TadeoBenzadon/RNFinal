@@ -55,15 +55,22 @@ export default class Profile extends Component {
         this.props.navigation.navigate('Register');
     }
 
+    deletePost (id){
+        const borrarPost = 
+        db.collection('posts').doc(id)
+        borrarPost.delete()
+    }
+
     render() {
         return (
             <>
                 {this.state.loading ? <Text>Cargando</Text> :
-                    <View>
-                        <Text>{this.state.user.data.username}</Text>
-                        <Text>{this.state.user.data.email}</Text>
-                        <Text>{this.state.user.data.bio}</Text>
-                        <Text>{this.state.posts.length} posteo</Text>
+                    <View style ={styles.background}>
+                        <Text style= {styles.subtitulo} >Datos personales</Text> 
+                        <Text style= {styles.texto} >Nombre: {this.state.user.data.username}</Text>
+                        <Text style= {styles.texto} >Mail: {this.state.user.data.email}</Text>
+                        <Text style= {styles.texto} >Biografia:{this.state.user.data.bio}</Text>
+                        <Text style= {styles.texto} >Cantidad de posteos: {this.state.posts.length} posteo</Text>
                         <TouchableOpacity onPress={() => this.logOut()}>
                             <Text style={styles.button}>Cerrar Sesion</Text>
                         </TouchableOpacity>
@@ -80,8 +87,10 @@ export default class Profile extends Component {
                            url = {item.data.url}
                            likes= {item.data.likes}
                                 {...this.props} >
-
                             </Post>
+                            <TouchableOpacity onPress={() => this.deletePost(item.id)}>
+                            <Text style={styles.button}>Eliminar post</Text>
+                        </TouchableOpacity>
                         </View>
         )}
 
@@ -94,17 +103,8 @@ export default class Profile extends Component {
 const styles = StyleSheet.create({
 
 
-    button: {
-        borderRadius: 10,
-        padding: 2,
-        borderWidth: 1,
-        borderColor: '#62504c',
-        backgroundColor: '#62504c',
-        width: 200,
-        height: 50,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+    background:{
+        backgroundColor: '#cabfa5',
     },
     container: {
         backgroundColor: '#cabfa5',
@@ -120,20 +120,32 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
     },
-    text: {
-        textAlign: 'center',
-        fontWeight: 50,
+    button: {
+        borderRadius: 10,
+         padding:2,
+         borderWidth: 1,
+         borderColor: '#62504c',
+         backgroundColor: '#62504c',
+         width:200,
+         height: 50,
+         display:"flex",
+         justifyContent:"center",
+         alignItems:"center",
+    },
+    subtitulo:{
+        textAlign: "center",
+        color: "black",
+        fontWeight: "600",
         fontSize: 15,
-        paddingTop: 10,
-        paddingBottom: 10,
+        padding: 5,
     },
-    titulo2: {
-        textAlign: 'center',
-        fontWeight: 50,
-        fontSize: 50,
-        paddingTop: 10,
-        paddingBottom: 10,
+    texto :{
+        color: "black",
+        padding:2,
+        margin: 5,
+        textAlign: "center",
     },
+    
     flatList: {
         flex: 4,
         marginHorizontal: 20
