@@ -55,6 +55,12 @@ export default class Profile extends Component {
         this.props.navigation.navigate('Register');
     }
 
+    deletePost (id){
+        const borrarPost = 
+        db.collection('posts').doc(id)
+        borrarPost.delete()
+    }
+
     render() {
         return (
             <>
@@ -81,8 +87,10 @@ export default class Profile extends Component {
                            url = {item.data.url}
                            likes= {item.data.likes}
                                 {...this.props} >
-
                             </Post>
+                            <TouchableOpacity onPress={() => this.deletePost(item.id)}>
+                            <Text style={styles.button}>Eliminar post</Text>
+                        </TouchableOpacity>
                         </View>
         )}
 
