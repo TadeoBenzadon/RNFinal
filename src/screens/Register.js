@@ -12,7 +12,7 @@ class Register extends Component {
             bio: '',             
             fotoDePerfil: false,  // se pone false porque va estar vacio, ya que la funcionalidad no esta programada. 
 		};
-	} //Es un componente de clase porque....
+	} 
     componentDidMount(){
         auth.onAuthStateChanged(user =>{
              if(user){
@@ -21,7 +21,7 @@ class Register extends Component {
         })
    }
           
-//Al registrar un user, queremos guardarlo en la db con nombre,biografia. ¿como hago esto?
+//Al registrar un user, queremos guardarlo en la db con nombre,biografia. 
  register(){
     auth
 			.createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -58,7 +58,7 @@ class Register extends Component {
                 <View>
                     <TextInput
                      style = {styles.campo}
-                     keyboardType = 'default'  //poruqe default ??
+                     keyboardType = 'default'  
                      placeholder= 'Nombre de Usuario'
                      value={this.state.nombreUsuario}
                      onChangeText={nombre => this.setState({username:nombre})}
@@ -97,7 +97,7 @@ class Register extends Component {
                     <Text style={styles.text}>Registrarse</Text>
                 </TouchableOpacity>
 
-                <TextInput  onChangeText={(text) => this.setState({ pass: text })} value={this.state.pass} />
+                
 					<Text style={styles.text} onPress={() => this.props.navigation.navigate('Login')}>Ya tengo cuenta</Text>
                 </View>
                 <Text> {this.state.registerError}</Text>
