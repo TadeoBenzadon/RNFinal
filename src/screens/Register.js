@@ -60,16 +60,16 @@ class Register extends Component {
                      style = {styles.campo}
                      keyboardType = 'default'  
                      placeholder= 'Nombre de Usuario'
-                     value={this.state.nombreUsuario}
                      onChangeText={nombre => this.setState({username:nombre})}
+                     value={this.state.nombreUsuario}
                     />
 
                     <TextInput 
                      style = {styles.campo}
                      keyboardType = 'email-address'  
                      placeholder= 'Email'
-                     value={this.state.email}
                      onChangeText={text => this.setState({email:text})}  //Utilizamos setState para actualizar el estado
+                     value={this.state.email}
                     /> 
 
                     <TextInput 
@@ -77,16 +77,16 @@ class Register extends Component {
                      keyboardType="default"
                      placeholder="Password"
                      secureTextEntry={true}
-                     value={this.state.password}
                      onChangeText={contra => this.setState({password:contra})}
+                     value={this.state.password}
                      />
 
                     <TextInput 
                      style = {styles.campo}
                      keyboardType="default"
                      placeholder="Biografia"
-                     value={this.state.bio}
                      onChangeText={bio => this.setState({bio:bio})}
+                     value={this.state.bio}
                      />
 
 
